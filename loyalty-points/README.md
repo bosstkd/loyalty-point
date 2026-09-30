@@ -26,7 +26,7 @@ infrastructure ┘
 |---|---|---|
 | `domain` | rien | aucun (Java pur) |
 | `application` | `domain` | aucun (Java pur) |
-| `infrastructure` | `application` | Spring Data JPA, H2 |
+| `infrastructure` | `application` | Spring Data JPA, H2, Liquibase |
 | `presentation` | `application`, `infrastructure` | Spring Web, Validation |
 
 > `presentation` ne dépend d'`infrastructure` que pour le câblage Spring (composition root) : le code applicatif ne manipule que les ports.
@@ -50,7 +50,7 @@ Testé avec des mocks (Mockito) des ports.
 
 ### `infrastructure` — Adapters sortants
 Implémente les ports de `application` :
-- **Persistance** : entités JPA (distinctes des entités du domaine) + repositories Spring Data, base H2 ;
+- **Persistance** : entités JPA (distinctes des entités du domaine) + repositories Spring Data, base H2. Le schéma est créé et versionné par **Liquibase** (`src/main/resources/db/changelog/`) ; Hibernate est en `ddl-auto: validate` et vérifie uniquement que les entités correspondent au schéma ;
 - **Notifications** : envoi des alertes avant expiration des points.
 
 La conversion entités JPA ↔ entités du domaine se fait dans ce module : le domaine ne connaît jamais JPA.

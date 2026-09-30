@@ -6,9 +6,12 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      # Le schéma est géré par Liquibase : Hibernate se contente de vérifier la cohérence des entités.
+      ddl-auto: validate
     show-sql: false
     open-in-view: false
   h2:

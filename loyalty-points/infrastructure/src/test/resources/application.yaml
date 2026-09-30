@@ -1,0 +1,7 @@
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  jpa:
+    hibernate:
+      # Schéma créé par le changelog Liquibase de production : Hibernate vérifie seulement le mapping.
+      ddl-auto: validate
